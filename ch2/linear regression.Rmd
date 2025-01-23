@@ -16,97 +16,27 @@ header-includes:
 
 # Least Squares Method
 
-## Least Squares Method
-
-
-## Shiny 기본 구조 
-
-\vt
-- ui(): 데이터 입력과 분석 결과 출력
-\vt
-- server(): 입력 결과를 처리한 다음 다시 ui()로 전송
-\vt
-- shinyApp(): 애플리케이션 실행 
-
-## User Interface
-```{r warning=FALSE}
-
-```
-
-## Server 
-```{r}
-
-```
-
-## Output
-```{r fig.height=5, fig.width=10, message=FALSE}
-
-```
-
 # Multiple Regression
-
-##  Multiple Regression
-
-- 반응성(reactive): ui()의 입력값인 input\$~ 이 변경될 때 server()가 자동으로 변화를 감지하여 출력값 output\$~을 랜던링 후 갱신하는 것 
-\vt
-- 입력 슬라이더 범위가 바뀔때마다 출력 테이블이 달라짐 
-
-
-## 데이터 불러오기 
-```{r message=FALSE, warning=FALSE}
-
-```
-
-## 반응식 작성하기 
-```{r}
-
-```
-
-## Output
-```{r message=FALSE}
-
-```
-
 
 # Distribution
 
-## Distribution 
-
 # Distribution of RSS Values
-
-## Distribution of RSS values
 
 # Hypothesis Testing for $\hat{\beta}_j \ne 0$
 
 # Coefficient of Determination and the Detection of Collinearity
-```{r}
 
-```
-
-<!-- ##  -->
-<!-- ```{r message=FALSE} -->
-<!-- shinyApp(ui, server) -->
-<!-- ``` -->
+# Confidence and Prediction Intervals
 
 
-## 탭 페이지 추가 
-```{r}
 
-```
-
-
-<!-- ##  -->
-<!-- ```{r message=FALSE} -->
-<!-- shinyApp(ui, server) -->
-<!-- ``` -->
-
-## Q & A
+# Q & A
 
 \begin{center}
   {\bf {\Huge Q \& A}}
 \end{center}
 
-## 
+# 
 
 \begin{center}
   {\bf {\Huge Thank you :)}}
