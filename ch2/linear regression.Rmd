@@ -14,17 +14,10 @@ header-includes:
 ---
 
 
-# Shiny
+# Least Squares Method
 
-## Shiny
+## Least Squares Method
 
-
-
-- 데이터 분석 결과를 웹 애플리케이션으로 구현하는 도구 
-\vt
-- HTML, CSS, JavaScript 기능 이용 가능 
-\vt
-- 사용자의 요청에 따라 응답하는 구조 
 
 ## Shiny 기본 구조 
 
@@ -50,9 +43,9 @@ header-includes:
 
 ```
 
-# Responsive Web
+# Multiple Regression
 
-##  반응형 웹 애플리케이션
+##  Multiple Regression
 
 - 반응성(reactive): ui()의 입력값인 input\$~ 이 변경될 때 server()가 자동으로 변화를 감지하여 출력값 output\$~을 랜던링 후 갱신하는 것 
 \vt
@@ -75,9 +68,17 @@ header-includes:
 ```
 
 
-# Settings and layout
+# Distribution
 
-## 단일 페이지 화면 
+## Distribution 
+
+# Distribution of RSS Values
+
+## Distribution of RSS values
+
+# Hypothesis Testing for $\hat{\beta}_j \ne 0$
+
+# Coefficient of Determination and the Detection of Collinearity
 ```{r}
 
 ```
@@ -98,7 +99,6 @@ header-includes:
 <!-- ```{r message=FALSE} -->
 <!-- shinyApp(ui, server) -->
 <!-- ``` -->
-
 
 ## Q & A
 
