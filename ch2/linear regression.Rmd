@@ -1,6 +1,6 @@
 ---
 title: Linear Regression
-author: "Miyoung Jang"
+author: "Newton's three sisters"
 date: February 9, 2025
 institute: Department of Statistics \newline Sungshin Women’s University
 fonttheme: "serif"
