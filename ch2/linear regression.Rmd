@@ -16,6 +16,21 @@ header-includes:
 
 # Least Squares Method
 
+## d
+```{r warning=FALSE}
+
+```
+
+## c 
+```{r}
+
+```
+
+## b
+```{r fig.height=5, fig.width=10, message=FALSE}
+
+```
+
 # Multiple Regression
 
 # Distribution
@@ -28,16 +43,25 @@ header-includes:
 
 # Confidence and Prediction Intervals
 
+## a
+```{r}
+
+```
+<!-- ##  -->
+<!-- ```{r message=FALSE} -->
+<!-- shinyApp(ui, server) -->
+<!-- ``` -->
 
 
-# Q & A
+## Q & A
 
 \begin{center}
   {\bf {\Huge Q \& A}}
 \end{center}
 
-# 
+## 
 
 \begin{center}
   {\bf {\Huge Thank you :)}}
 \end{center}
+
