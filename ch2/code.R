@@ -26,8 +26,9 @@ abline(min.sq(x, y)$a, min.sq(x, y)$b, col = "blue")
 legend("topleft", c("BEFORE", "AFTER"), lty = 1, col = c("red", "blue"))
 
 # example 20
-n = 100 ; p = 3
+n = 100 ; p = 2
 beta = c(1, 2, 3)
 x = matrix(rnorm(n*p), nrow = n, ncol = p)
 y = beta[1] + beta[2]*x[,1] + beta[3]*x[,2] + rnorm(n)
+x = cbind(1, x)
 solve(t(x)%*%x) %*% t(x) %*% y
