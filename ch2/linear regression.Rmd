@@ -112,9 +112,24 @@ v_N
 ## dd
 - Let $w \in \mathbb{R}^{N-p-1}$
 \vt
-- Average
+- Average 
+
+  $E[v] = E[P\varepsilon] = 0$
+
+  $E[w] = 0$
 \vt
-- Covariance
+
+- Covariance 
+
+  $E[vv^t] = E[P\varepsilon(P\varepsilon)^T] = PE[\varepsilon\varepsilon^t]P=P\sigma^2IP^T = \sigma^2I$
+  
+  $E[ww^T] = \sigma^2I$
+\vt
+
+- We have RSS
+$$
+\frac{RSS}{\sigma^2} \sim \chi^2_{N-p-1}
+$$
 
 # Hypothesis Testing for $\hat{\beta}_j \ne 0$
 
