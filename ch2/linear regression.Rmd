@@ -135,6 +135,20 @@ $$
 
 # Coefficient of Determination and the Detection of Collinearity
 
+##  제목
+
+- We define a matrix $W \in \mathbb{R}^{N\times N}$ such that all the elements are $1/N$
+\vt
+
+- Explained sum of squres ESS
+$$
+\text{ESS} \triangleq ||\hat{y} - \bar{y}||^2 = ||\hat{y} - Wy||^2 = ||(H - W)y||^2
+$$
+- Total sum of squres TSS
+$$
+\text{TSS} \triangleq ||y - \bar{y}||^2 = ||(I - W)y||^2 
+$$
+
 # Confidence and Prediction Intervals
 
 ## a
