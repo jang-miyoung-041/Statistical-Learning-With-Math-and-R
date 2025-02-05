@@ -1,0 +1,14 @@
+---
+title: "Classification"
+author: "Jang Miyoung"
+date: "February 9, 2025"
+output:
+  beamer_presentation:
+    latex_engine: xelatex
+    theme: metropolis
+  slidy_presentation: default
+fonttheme: serif
+fontsize: 8pt
+institute: Department of Statistics \newline Sungshin Women’s University
+header-includes: \input{header_includes.tex}
+---
