@@ -12,3 +12,12 @@ fontsize: 8pt
 institute: Department of Statistics \newline Sungshin Women’s University
 header-includes: \input{header_includes.tex}
 ---
+
+# Logistic Regression
+
+## ad
+
+- The probabilities of $y = 1$ and $y = -1$ are expressed by $\frac{e^{\beta_0+x\beta}}{1 + e^{\beta_0+x\beta}}$ and $\frac{1}{1 + e^{\beta_0+x\beta}}$
+$$
+\frac{1}{1 + e^{-y(\beta_0+x\beta)}}
+$$
