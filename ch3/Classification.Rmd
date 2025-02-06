@@ -18,6 +18,66 @@ header-includes: \input{header_includes.tex}
 ## ad
 
 - The probabilities of $y = 1$ and $y = -1$ are expressed by $\frac{e^{\beta_0+x\beta}}{1 + e^{\beta_0+x\beta}}$ and $\frac{1}{1 + e^{\beta_0+x\beta}}$
+
 $$
 \frac{1}{1 + e^{-y(\beta_0+x\beta)}}
 $$
+
+```{r fig.height=5, fig.width=10, echo=FALSE}
+f = function(x){
+  exp(beta.0 + beta*x)/(1+exp(beta.0 + beta*x))
+}
+beta.0 = 0; beta.seq = c(0, 0.2, 0.5, 1, 2, 10); m = length(beta.seq); beta = beta.seq[1]
+plot(f, xlim = c(-10,10), ylim = c(0, 1), xlab = "x", ylab = "P(Y=1|x)", col = 1,
+     main = "Logistic Curve")
+for (i in 2:m){
+  beta = beta.seq[i]; par(new = TRUE);
+  plot(f, xlim = c(-10, 10), ylim = c(0, 1), xlab = " ", ylab = " ", axes = FALSE, col = i)
+}
+legend("topleft", legend = beta.seq, col = 1:length(beta.seq), lwd = 2, cex = .8)
+```
+ 
+## increasing monotonically and convex and concave
+
+\begin{align*}
+f'(x) &= \beta\frac{e^{-(\beta_0+x\beta)}}{(1+e^{-(\beta_0+x\beta)})^2} \ge 0 \\
+f''(x) = &-\beta^2\frac{e^{-(\beta_0+x\beta)}[1-e^{-(\beta_0+x\beta)}]}{(1+e^{-(\beta_0+x\beta)})^3}
+\end{align*}
+
+- We see that $f(x)$ is increasing monotonically and is convex and concave when $x<-\beta_0/\beta$ and $x>-\beta_0/\beta$, they chage at $x=0$, when $\beta =0$
+
+# Netwon Raphson Method
+
+## Netwon Raphson 
+
+- Tangent line is $y - f(x_i) = f'(x_i)(x - x_i)$ the intersection with y = 0
+
+$$
+x_{i+1} \triangleq x_i - \frac{f(x_i)}{f'(x_i)}
+$$
+
+- Example $f(x) = x^2-1$ and $x_0 = 4$ 
+
+```{r fig.height=5, fig.width=10, echo=FALSE}
+f = function(x){
+  x^2-1
+}
+f. = function(x){
+  2*x
+}
+
+curve(f(x), -1, 5)
+abline(h=0, col = "blue")
+x = 4
+for (i in 1:10){
+  X = x
+  Y = f(x)
+  x = x - f(x)/f.(x)
+  y = f(x)
+  segments(X, Y, x, 0)
+  segments(X, Y, X, 0, lty = 3)
+  points(x, 0, col = "red", pch = 16)
+}
+```
+
+## Newton Raphson Method for two variables
