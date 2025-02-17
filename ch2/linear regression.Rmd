@@ -29,50 +29,8 @@ H^2 &= X(X^TX)^{-1}{X^T} \cdot X(X^TX)^{-1}{X^T} = X(X^TX)^{-1}{X^T} = H \\
 HX &= X(X^TX)^{-1}{X^T} \cdot X = X
 \end{align*}
 
-## Residual sum of square
 
-- RSS defined
-$$
-\text{RSS} \triangleq ||y-\hat{y}||^2
-$$
-
-- Using hat matrix
-\begin{align*}
-y - \hat{y} &= y - Hy = (I-H)y = (I-H)(X\beta+\varepsilon) \\
-            &= (X -HX)\beta + (I - H)\varepsilon = (I - H)\varepsilon
-\end{align*}
-
-$$
-\text{RSS} \triangleq ||y - \hat{y}||^2 = \{(I - H)\varepsilon\}^T (I - H)\varepsilon = \varepsilon^T(I-H)^2\varepsilon = \varepsilon^T(I-H)\varepsilon
-$$
-
-## Eigenvalues $H$ and $I-H$
-
-- They are only zeros and ones
-\vt
-- Dimensions of the eigenspaces of $H$ and $I-H$ are both $p + 1$ \
-\vspace{0.1cm}
-\textbf{Proof} using rank$(X) = p+1$ 
-\begin{align*}
-\text{rank}(H) &\le \text{min}\{\text{rank}(X(X^TX)^{-1}), \text{rank}(X)\} \le \text{rank}(X) = p + 1 \\
-\text{rank}(H) &\ge \text{rank}(HX) = \text{rank}(X) = p + 1
-\end{align*}
-
-
-## Hat matrix
-- Hat matrix defined by 
-
-
-  $\hat{y} = X\hat{\beta} = X(X^TX)^{-1}{X^T}y = Hy$
-$$H \triangleq X(X^TX)^{-1}{X^T}$$
-- some properties
-\begin{align*}
-H^2 &= X(X^TX)^{-1}{X^T} \cdot X(X^TX)^{-1}{X^T} = X(X^TX)^{-1}{X^T} = H \\
-(I -H)^2 &= I - 2H + H^2 = I - H \\
-HX &= X(X^TX)^{-1}{X^T} \cdot X = X
-\end{align*}
-
-## Residual sum of square
+## Residual Sum of Square
 - RSS defined
 $$
 \text{RSS} \triangleq ||y-\hat{y}||^2
@@ -106,7 +64,7 @@ $$
 P (I - H) P^T = \operatorname{diag}(\underbrace{1, \dots, 1}_{N-p-1}, \underbrace{0, \dots, 0}_{p+1})
 $$
 
-## 제목 뭐라고 하지..
+## Residual Sum of Squares (RSS) and Eigenvalue
 -  We define $v = P\varepsilon \in \mathbb{R}^N$, then from $\varepsilon = P^Tv$
 \begin{align*}
 \text{RSS} 
@@ -127,25 +85,25 @@ v_{N-p-1} \\
 v_{N-p} \\
 \vdots \\
 v_N
-\end{bmatrix} 
+\end{bmatrix} \\
 &= \sum^{N-p-1}_{i = 1}v_i^2
 \end{align*}
 
-## dd
-- Let $w \in \mathbb{R}^{N-p-1}$
+## Statistical Properties of the Residual Sum of Squares (RSS)
+- Let $w \in \mathbb{R}^{N-p-1}$ be
 \vt
-- Average 
+  - Average 
 
-  $E[v] = E[P\varepsilon] = 0$
+    $E[v] = E[P\varepsilon] = 0$
 
-  $E[w] = 0$
+    $E[w] = 0$
 \vt
 
-- Covariance 
+  - Covariance 
 
-  $E[vv^t] = E[P\varepsilon(P\varepsilon)^T] = PE[\varepsilon\varepsilon^t]P=P\sigma^2IP^T = \sigma^2I$
+    $E[vv^t] = E[P\varepsilon(P\varepsilon)^T] = PE[\varepsilon\varepsilon^t]P=P\sigma^2IP^T = \sigma^2I$
   
-  $E[ww^T] = \sigma^2I$
+    $E[ww^T] = \sigma^2I$
 \vt
 
 - We have RSS
@@ -166,7 +124,7 @@ $$
 T \triangleq U / \sqrt{V/m}
 $$
 
-```{r fig.height=5, fig.width=10, message=FALSE}
+```{r echo=FALSE, fig.height=5, fig.width=9, message=FALSE}
 curve(dnorm(x), -10, 10, ann = FALSE, ylim = c(0, 0.5), lwd = 5)
 for(i in 1:10)curve(dt(x, df= i), -10, 10, col = i, add = TRUE, ann = FALSE)
 legend("topright", legend = 1:10, lty = 1, col = 1:10)
@@ -175,37 +133,138 @@ legend("topright", legend = 1:10, lty = 1, col = 1:10)
 ## Significance level
 - $\alpha = 0.01,\ 0.05$
 \vt
-- Reject the null hypothesis 
+- Null hypothesis $\beta_j = 0$
+
+```{r fig.height=5, fig.width=9, echo=FALSE}
+# 기본 정규분포 그래프
+curve(dnorm(x), -6, 6, ann = FALSE, ylim = c(0, 0.6), lwd = 3)
+
+# 유의수준(alpha) 설정
+alpha <- 0.05  # 95% 신뢰구간 (5% 유의수준)
+z_crit <- qnorm(1 - alpha/2)  # 양측 검정의 임계값
+
+# 기각영역 채우기 (좌측, 우측)
+x_reject_left <- seq(-6, -z_crit, length=100)
+x_reject_right <- seq(z_crit, 6, length=100)
+
+polygon(c(x_reject_left, rev(x_reject_left)), 
+        c(dnorm(x_reject_left), rep(0, length(x_reject_left))), 
+        col="red", border=NA)
+
+polygon(c(x_reject_right, rev(x_reject_right)), 
+        c(dnorm(x_reject_right), rep(0, length(x_reject_right))), 
+        col="red", border=NA)
+
+# 채택영역 채우기 (가운데 부분)
+x_accept <- seq(-z_crit, z_crit, length=100)
+polygon(c(x_accept, rev(x_accept)), 
+        c(dnorm(x_accept), rep(0, length(x_accept))), 
+        col="blue", border=NA)
+
+# 텍스트 추가
+text(0, 0.25, expression(1 - alpha), col = "black", cex=1.5)
+text(-4, 0.05, expression(alpha/2), col = "black", cex=1.2)
+text(4, 0.05, expression(alpha/2), col = "black", cex=1.2)
+text(-4, 0.1, "REJECT", col="red", cex=1.2)
+text(4, 0.1, "REJECT", col="red", cex=1.2)
+text(0, 0.4, "ACCEPT", col="black", cex=1.5)
+
+# 수직선 추가 (임계값)
+abline(v = c(-z_crit, z_crit), col="red", lwd=2)
+
+# 범례 추가
+legend("topright", legend=c("Standard Normal", "Reject Region", "Accept Region"),
+       col=c("black", "red", "blue"), lty=1, fill=c(NA, "red", "blue"), border=NA)
+
+```
+
+## Example 23
+- For $p=1$, since
+$$
+X^TX = \begin{bmatrix} 1 & \cdots   & 1 \\
+                       x_1 & \cdots & x_N
+       \end{bmatrix}
+       \begin{bmatrix}
+       1 & x_1 \\
+       \vdots & \vdots \\
+       1 & x_n
+       \end{bmatrix}
+       = N \begin{bmatrix}
+            1 & \bar{x} \\
+            \bar{x} & \frac{1}{N}\sum_{i = 1}^{N}x_i^2
+           \end{bmatrix}
+$$
+- The inverse is
+$$
+(X^TX)^{-1} = \frac{1}{N}\begin{bmatrix}
+                           1      & \bar{x} \\
+                          \bar{x} & \frac{1}{N}\sum_{i = 1}^{N}x_i^2
+                         \end{bmatrix}^{-1} = \frac{1}{\sum_{i=1}^{N}(x_i - \bar{x})^2}
+                         \begin{bmatrix}
+                            \frac{1}{N}\sum_{i = 1}^{N}x_i^2       & -\bar{x} \\
+                            -\bar{x}                               & 1
+                         \end{bmatrix}
+$$
+
+- Which means that
+$$
+B_0 = \frac{\frac{1}{N}\sum_{i = 1}^{N}x_i^2}{\sum_{i=1}^{N}(x_i - \bar{x})^2} \ \ \ \text{and} \ \ \ B_1 = \frac{1}{\sum_{i=1}^{N}(x_i - \bar{x})^2}
+$$
+
+## Example 23 (contd.)
+- For $B = (X^TX)^{-1}, B\sigma^2$ is covariance matrix of $\hat{\beta}$
+
+- $B_j\sigma^2$ is the variance of $\hat{\beta}_j$
+
+- Because $\bar{x}$ is positive, the correlation between $\hat{\beta}_0$ and $\hat{\beta}_1$ is negative
+$$
+t = \frac{\hat{\beta}_j - \beta_j}{\text{SE}(\hat{\beta}_j)} \sim t_{N-p-1}
+$$
+
+## Statistical Independence in Regression
+- It remains to be shown that $U$ and $V$ are independent
+$$
+U \triangleq \frac{\hat{\beta}_j-\beta_j}{\sqrt{B_j}\sigma} \sim N(0,1) \ \ \ \text{and} \ \ \ V \triangleq \chi^2_{N-p-1}
+$$
+
+- Sufficient to show tha $y - \hat{y}$ and $\hat{\beta} - \beta$ are independent
+$$
+(\hat{\beta} - \beta)(y-\hat{y})^T = (X^TX)^{-1}X^T\varepsilon\varepsilon^T(I-H)
+$$
+
+- From $E\varepsilon\varepsilon^T =\sigma^2I$ and $HX = X$,
+$$
+E(\hat{\beta} -\beta)(y-\hat{y})^T = 0
+$$
 
 # Coefficient of Determination and the Detection of Collinearity
 
-## 제목 뭐라고 하지.
+## RSS, ESS, and TSS
 
 - We define a matrix $W \in \mathbb{R}^{N \times N}$ such that all the elements are $1/N$ \
 
   $Wy \in \mathbb{R}^N$ are $\bar{y} = Wy = \sum^{N}_{i=1}y_i$ for $y_1, \cdots,y_N \in \mathbb{R}$
 
 - Residual sum of squares RSS
-
 $$
 \text{RSS} = ||\hat{y}-y||^2 = ||(I-H)\varepsilon||^2=||(I-H)y||^2
 $$
-- Explained sum of squres ESS
 
+- Explained sum of squres ESS
 $$
 \text{ESS} \triangleq ||\hat{y} - \bar{y}||^2 = ||\hat{y} - Wy||^2 = ||(H - W)y||^2
 $$
-- Total sum of squres TSS
 
+- Total sum of squres TSS
 $$
 \text{TSS} \triangleq ||y - \bar{y}||^2 = ||(I - W)y||^2 
 $$
 
-## 제목
+<!-- ## 제목
 
 - We have relation TSS = RSS + ESS \
 
-  \textbf{Proof}
+  \textbf{Proof} -->
 
 ## Sample - based correlation
 
@@ -223,21 +282,20 @@ $$
 &= \frac{\left\{ \sum^N_{i=1}(x_i-\bar{x})(y_i-\bar{y}) \right\}^2}{\sum^N_{i=1}(x_i-\bar{x})^2]\sum^N_{i=1}(y_i-\bar{y})^2} =\hat{\rho}^2
 \end{align*}
 
-## penalized
+## Variance Inflation Factors
 
 - Variance inflation factors
 $$
 \text{VIF} \triangleq \frac{1}{1 - R^2_{X_j|X_{-j}}}
 $$
 
-- The minimum value of VTI is one, and we say that the collinearity of covariate is strong when its VIF value is large
+- The minimum value of VIF is one, and we say that the collinearity of covariate is strong when its VIF value is large
 
 # Confidence and Prediction Intervals
 
-## aa
+## Confidence Interval
 
 - We have showed how to obtain the estimate $\hat{\beta}$ of $\beta \in \mathbb{R}^{p+1}$, confidence interval of $\hat{\beta}$ as follows
-
 $$
 \beta_i = \hat{\beta_i} \pm t_{N-p-1}(\alpha/2)\text{SE}(\hat{\beta_i}), \ \ \ \  \text{for} \ \   i = 0, 1, \cdots, p
 $$
@@ -260,7 +318,7 @@ $$
 \hat{\sigma} \triangleq \sqrt{\text{RSS}/(N -p-1)}, \ \ \text{SE}(x_*\hat{\beta}) \triangleq \hat{\sigma}\sqrt{x_*(X^TX)^{-1}x_*^T}
 $$
 
-## C 정의?
+## Confidence and Prediction Intervals in Regression
 
 - $\text{C} \sim t_{N-p-1}$
 \vt
