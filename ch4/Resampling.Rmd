@@ -1,0 +1,138 @@
+---
+title: "Chapter 4 : Resampling"
+author: "Newton's three sisters"
+date: "March 2, 2025"
+output:
+  beamer_presentation:
+    latex_engine: xelatex
+    theme: metropolis
+  slidy_presentation: default
+fonttheme: serif
+fontsize: 8pt
+institute: Department of Statistics \newline Sungshin Women’s University
+header-includes: \input{header_includes.tex}
+---
+
+# Logistic Regression
+
+## ad
+
+- The probabilities of $y = 1$ and $y = -1$ are expressed by $\frac{e^{\beta_0+x\beta}}{1 + e^{\beta_0+x\beta}}$ and $\frac{1}{1 + e^{\beta_0+x\beta}}$
+
+$$
+\frac{1}{1 + e^{-y(\beta_0+x\beta)}}
+$$
+
+```{r fig.height=5, fig.width=10, echo=FALSE}
+f = function(x){
+  exp(beta.0 + beta*x)/(1+exp(beta.0 + beta*x))
+}
+beta.0 = 0; beta.seq = c(0, 0.2, 0.5, 1, 2, 10); m = length(beta.seq); beta = beta.seq[1]
+plot(f, xlim = c(-10,10), ylim = c(0, 1), xlab = "x", ylab = "P(Y=1|x)", col = 1,
+     main = "Logistic Curve")
+for (i in 2:m){
+  beta = beta.seq[i]; par(new = TRUE);
+  plot(f, xlim = c(-10, 10), ylim = c(0, 1), xlab = " ", ylab = " ", axes = FALSE, col = i)
+}
+legend("topleft", legend = beta.seq, col = 1:length(beta.seq), lwd = 2, cex = .8)
+```
+ 
+## increasing monotonically and convex and concave
+
+\begin{align*}
+f'(x) &= \beta\frac{e^{-(\beta_0+x\beta)}}{(1+e^{-(\beta_0+x\beta)})^2} \ge 0 \\
+f''(x) = &-\beta^2\frac{e^{-(\beta_0+x\beta)}[1-e^{-(\beta_0+x\beta)}]}{(1+e^{-(\beta_0+x\beta)})^3}
+\end{align*}
+
+- We see that $f(x)$ is increasing monotonically and is convex and concave when $x<-\beta_0/\beta$ and $x>-\beta_0/\beta$, they chage at $x=0$, when $\beta =0$
+
+# Netwon Raphson Method
+
+## Netwon Raphson 
+
+- Tangent line is $y - f(x_i) = f'(x_i)(x - x_i)$ the intersection with y = 0
+
+$$
+x_{i+1} \triangleq x_i - \frac{f(x_i)}{f'(x_i)}
+$$
+
+- Example $f(x) = x^2-1$ and $x_0 = 4$ 
+
+```{r fig.height=5, fig.width=10, echo=FALSE}
+f = function(x){
+  x^2-1
+}
+f. = function(x){
+  2*x
+}
+
+curve(f(x), -1, 5)
+abline(h=0, col = "blue")
+x = 4
+for (i in 1:10){
+  X = x
+  Y = f(x)
+  x = x - f(x)/f.(x)
+  y = f(x)
+  segments(X, Y, x, 0)
+  segments(X, Y, X, 0, lty = 3)
+  points(x, 0, col = "red", pch = 16)
+}
+```
+
+## Newton Raphson Method for two variables
+- We can even be applied to two variables and two equations
+$$
+\begin{cases}
+f(x, y) = 0, \\
+g(x, y) = 0
+\end{cases}
+$$
+
+- We can see Newton Raphson is extended to
+$$
+\begin{bmatrix}
+x \\ 
+y
+\end{bmatrix} \leftarrow  \begin{bmatrix}
+                            x \\ 
+                            y
+                          \end{bmatrix} - \begin{bmatrix}
+                                           \frac{\partial f(x,y)}{\partial x} & \frac{\partial f(x, y)}{\partial y} \\
+                                           \frac{\partial g(x, y)}{\partial x} & \frac{\partial g(x, y)}{\partial y}
+                                          \end{bmatrix} ^{-1} \begin{bmatrix}
+                                                               f(x, y) \\ 
+                                                               g(x, y)
+                                                              \end{bmatrix}
+$$
+
+## a
+- We apply the same method to the problem of finding $\beta_0 \in \mathbb{R}$ and $\beta \in \mathbb{R}^p$ such that $\bigtriangledown l(\beta_0, \beta) = 0$
+$$
+(\beta_0, \beta) \leftarrow (\beta_0, \beta) - \{ \bigtriangledown^2l(\beta_o, \beta) \}^{-1}\bigtriangledown l(\beta_0, \beta)
+$$
+
+- If we differentiate the negative lon-likelihood $l(\beta_0, \beta) \in \mathbb{R} \times \mathbb{R}^{p+1}$ and we let $v_i = e^{-y_i(\beta_0+x_i\beta)}, i = 1, \cdots , N$ 
+
+- The vector $\bigtriangledown (\beta_0, \beta) \in \mathbb{R}^{p+1}$ such that the $j$th element is $\frac{\partial l(\beta_0, \beta)}{\partial \beta_j}$ can be expressed by $\bigtriangledown l(\beta_0,\beta) = -X^Tu$ with
+$$
+u = \begin{bmatrix}
+     \frac{y_1v_1}{1+v_1} \\
+     \vdots \\
+     \frac{y_Nv_N}{1+v_N}
+    \end{bmatrix}
+$$
+
+- Note $y_i = \pm 1,$ i.e., $y^2 = 1$, the matrix $\bigtriangledown ^2 l(\beta_0, \beta)$ such that the $(i, k)$th element is $\frac{\partial^2 l(\beta_0, \beta)}{\partial \beta_j\beta_k}, j,k = 0, 1, \cdots, p$ can be expressed by $\bigtriangledown^2l(\beta_0, \beta) = X^TWX$
+$$
+W = \begin{bmatrix}
+     \frac{v_1}{(1+v_1)^2} & \cdots & 0 \\
+     \vdots                & \ddots & \vdots \\
+     0                     & \cdots & \frac{v_N}{(1+v_N)^2}
+    \end{bmatrix}
+$$
+
+# Linear and Quadratic Discrimination
+
+## a
+-a
