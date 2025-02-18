@@ -81,3 +81,58 @@ for (i in 1:10){
 ```
 
 ## Newton Raphson Method for two variables
+- We can even be applied to two variables and two equations
+$$
+\begin{cases}
+f(x, y) = 0, \\
+g(x, y) = 0
+\end{cases}
+$$
+
+- We can see Newton Raphson is extended to
+$$
+\begin{bmatrix}
+x \\ 
+y
+\end{bmatrix} \leftarrow  \begin{bmatrix}
+                            x \\ 
+                            y
+                          \end{bmatrix} - \begin{bmatrix}
+                                           \frac{\partial f(x,y)}{\partial x} & \frac{\partial f(x, y)}{\partial y} \\
+                                           \frac{\partial g(x, y)}{\partial x} & \frac{\partial g(x, y)}{\partial y}
+                                          \end{bmatrix} ^{-1} \begin{bmatrix}
+                                                               f(x, y) \\ 
+                                                               g(x, y)
+                                                              \end{bmatrix}
+$$
+
+## a
+- We apply the same method to the problem of finding $\beta_0 \in \mathbb{R}$ and $\beta \in \mathbb{R}^p$ such that $\bigtriangledown l(\beta_0, \beta) = 0$
+$$
+(\beta_0, \beta) \leftarrow (\beta_0, \beta) - \{ \bigtriangledown^2l(\beta_o, \beta) \}^{-1}\bigtriangledown l(\beta_0, \beta)
+$$
+
+- If we differentiate the negative lon-likelihood $l(\beta_0, \beta) \in \mathbb{R} \times \mathbb{R}^{p+1}$ and we let $v_i = e^{-y_i(\beta_0+x_i\beta)}, i = 1, \cdots , N$ 
+
+- The vector $\bigtriangledown (\beta_0, \beta) \in \mathbb{R}^{p+1}$ such that the $j$th element is $\frac{\partial l(\beta_0, \beta)}{\partial \beta_j}$ can be expressed by $\bigtriangledown l(\beta_0,\beta) = -X^Tu$ with
+$$
+u = \begin{bmatrix}
+     \frac{y_1v_1}{1+v_1} \\
+     \vdots \\
+     \frac{y_Nv_N}{1+v_N}
+    \end{bmatrix}
+$$
+
+- Note $y_i = \pm 1,$ i.e., $y^2 = 1$, the matrix $\bigtriangledown ^2 l(\beta_0, \beta)$ such that the $(i, k)$th element is $\frac{\partial^2 l(\beta_0, \beta)}{\partial \beta_j\beta_k}, j,k = 0, 1, \cdots, p$ can be expressed by $\bigtriangledown^2l(\beta_0, \beta) = X^TWX$
+$$
+W = \begin{bmatrix}
+     \frac{v_1}{(1+v_1)^2} & \cdots & 0 \\
+     \vdots                & \ddots & \vdots \\
+     0                     & \cdots & \frac{v_N}{(1+v_N)^2}
+    \end{bmatrix}
+$$
+
+# Linear and Quadratic Discrimination
+
+## a
+-a
