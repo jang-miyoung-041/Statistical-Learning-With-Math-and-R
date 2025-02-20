@@ -1,6 +1,6 @@
 ---
 title: "Chpater 2 : Linear Regression"
-subtitle : "Coefficient of determination and Detection of Collinearity and Confidence and Prediction interval"
+subtitle: "Coefficient of determination and Detection of Collinearity and Confidence and Prediction interval"
 author: "Miyoung Jang"
 date: "February 23, 2025"
 output:
