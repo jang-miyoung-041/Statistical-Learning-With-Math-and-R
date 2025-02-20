@@ -1,6 +1,7 @@
 ---
 title: "Chpater 2 : Linear Regression"
-author: "Newton's three sisters"
+subtitle : "Coefficient of determination and Detection of Collinearity and Confidence and Prediction interval"
+author: "Miyoung Jang"
 date: "February 23, 2025"
 output:
   beamer_presentation:
@@ -9,7 +10,7 @@ output:
   slidy_presentation: default
 fonttheme: serif
 fontsize: 8pt
-institute: Department of Statistics \newline Sungshin Women’s University
+institute: The Three Sisters of Newton \newline School of Mathematics, Statistics and Data Science \newline Sungshin Women’s Universit
 header-includes: \input{header_includes.tex}
 ---
 
